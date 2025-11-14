@@ -1,13 +1,16 @@
-
-import ProfileForm from './Profile'; 
+// import ProfileForm from './Profile';
+// import Transcript from './Transcript';
+import AnalysisResults from './AnalysisResults'; // <-- Yeni dosyamız
 
 function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       
-      {/* Senin formun burada çağırılıyor */}
-      <ProfileForm />
+      {/* <ProfileForm /> */}
+      {/* <Transcript /> */}
       
+      <AnalysisResults /> {/* <-- Sahnede bu var */}
+
     </div>
   );
 }
