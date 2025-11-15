@@ -1,17 +1,27 @@
-// import ProfileForm from './Profile';
-// import Transcript from './Transcript';
-import AnalysisResults from './AnalysisResults'; // <-- Yeni dosyamız
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// You are about to create these 3 files in the next step
+import MainPage from './pages/MainPage';
+import ProfilePage from './pages/ProfilePage';
+import LibraryPage from './pages/LibraryPage';
+import MicPage from './pages/MicPage';
+import TranscriptPage from './pages/TranscriptPage';
+import AnalysisPage from './pages/AnalysisPage';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      
-      {/* <ProfileForm /> */}
-      {/* <Transcript /> */}
-      
-      <AnalysisResults /> {/* <-- Sahnede bu var */}
+    <BrowserRouter>
+      <Routes>
+        {/* Default page is login */}
+        <Route path="/" element={<MainPage />} /> 
 
-    </div>
+        {/* Your other pages */}
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/library" element={<LibraryPage />} />
+        <Route path="/mic" element={<MicPage />} />
+        <Route path="/transcript" element={<TranscriptPage />} />
+        <Route path="/analysis" element={<AnalysisPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
