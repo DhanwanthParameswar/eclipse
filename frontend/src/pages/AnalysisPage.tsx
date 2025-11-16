@@ -1,42 +1,99 @@
-function AnalysisPage() {
-    return (
-<div style={{width: 440, height: 956, padding: 20, background: 'linear-gradient(0deg, #F8FAFC 0%, #F8FAFC 100%), white', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-  <div style={{alignSelf: 'stretch', flex: '1 1 0', paddingLeft: 21, paddingRight: 21, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-    <div style={{flex: '1 1 0', height: 903, paddingTop: 75, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
-      <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 8, display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-          <div style={{alignSelf: 'stretch', textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#0F172A', fontSize: 36, fontFamily: 'Poppins', fontWeight: '700', lineHeight: 40, wordWrap: 'break-word'}}>Analysis Results</div>
-        </div>
-        <div style={{alignSelf: 'stretch', height: 66, paddingTop: 21, paddingBottom: 21}} />
-      </div>
-      <div style={{alignSelf: 'stretch', height: 555, paddingBottom: 20, overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 32, display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', height: 149, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-          <div style={{alignSelf: 'stretch', flex: '1 1 0', paddingLeft: 13, paddingRight: 13, paddingTop: 9, paddingBottom: 9, background: '#F8FAFC', overflow: 'hidden', borderRadius: 8, outline: '1px #CBD5E1 solid', outlineOffset: '-1px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-              <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'black', fontSize: 18, fontFamily: 'Sora', fontWeight: '600', lineHeight: 24, wordWrap: 'break-word'}}>Summary</div>
-            </div>
-          </div>
-        </div>
-        <div style={{alignSelf: 'stretch', height: 131, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-          <div style={{alignSelf: 'stretch', flex: '1 1 0', paddingLeft: 13, paddingRight: 13, paddingTop: 9, paddingBottom: 9, background: '#F8FAFC', overflow: 'hidden', borderRadius: 8, outline: '1px #CBD5E1 solid', outlineOffset: '-1px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-            <div style={{width: 238, height: 33, justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'black', fontSize: 18, fontFamily: 'Sora', fontWeight: '600', lineHeight: 24, wordWrap: 'break-word'}}>Follow Up</div>
-          </div>
-        </div>
-        <div style={{alignSelf: 'stretch', height: 131, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-          <div style={{alignSelf: 'stretch', flex: '1 1 0', paddingLeft: 13, paddingRight: 13, paddingTop: 9, paddingBottom: 9, background: '#F8FAFC', overflow: 'hidden', borderRadius: 8, outline: '1px #CBD5E1 solid', outlineOffset: '-1px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-            <div style={{width: 238, height: 33, justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'black', fontSize: 18, fontFamily: 'Sora', fontWeight: '600', lineHeight: 24, wordWrap: 'break-word'}}>Coaching Tips</div>
-          </div>
-        </div>
-      </div>
-      <div style={{width: 358, paddingTop: 17, left: 0, top: 769, position: 'absolute', borderTop: '1px #E2E8F0 solid', justifyContent: 'flex-end', alignItems: 'flex-start', display: 'inline-flex'}}>
-        <div style={{paddingLeft: 35, paddingRight: 35, paddingTop: 13, paddingBottom: 13, left: 126.50, top: 17, position: 'absolute', background: '#1287FF', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRadius: 16, justifyContent: 'center', alignItems: 'center', gap: 10, display: 'flex'}}>
-          <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'white', fontSize: 18, fontFamily: 'Sora', fontWeight: '600', lineHeight: 24, wordWrap: 'break-word'}}>Exit</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    );
+// src/AnalysisResults.tsx
+
+import React, { useState, useEffect } from 'react';
+
+// Veri yapımızın şablonu (Interface)
+interface AnalysisData {
+  summary: string;
+  followUp: string;
+  coachingTips: string;
 }
 
-export default AnalysisPage;
+const AnalysisResults: React.FC = () => {
+  // Verileri tutacak state
+  const [data, setData] = useState<AnalysisData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    // SİMÜLASYON: API'den analiz sonuçları geliyormuş gibi yapıyoruz.
+    const fetchAnalysis = async () => {
+      setIsLoading(true);
+      
+      // Yapay bir bekleme süresi (1.5 saniye)
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Örnek veriler (İleride burası backend'den gelecek)
+      setData({
+        summary: "The candidate demonstrated strong technical skills but seemed hesitant when discussing project management experience.",
+        followUp: "Ask more specific questions about how they handle conflict resolution in a team setting.",
+        coachingTips: "Try to maintain more eye contact and avoid using filler words like 'um' and 'uh' too frequently."
+      });
+      
+      setIsLoading(false);
+    };
+
+    fetchAnalysis();
+  }, []);
+
+  return (
+    <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md flex flex-col">
+      
+      {/* Başlık */}
+      <h1 className="text-3xl font-bold text-gray-900 text-center mb-8">
+        Analysis Results
+      </h1>
+
+      {/* İçerik Alanı */}
+      {isLoading ? (
+        <div className="flex flex-col items-center justify-center h-64 space-y-4">
+          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-gray-500">Analyzing data...</p>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          
+          {/* Summary Box */}
+          <div className="w-full">
+            <h3 className="text-sm font-bold text-gray-900 mb-2 ml-1">Summary</h3>
+            <div className="w-full border border-gray-200 rounded-lg p-4 bg-gray-50 text-gray-700 text-sm min-h-[80px]">
+              {data?.summary || "No summary available."}
+            </div>
+          </div>
+
+          {/* Follow Up Box */}
+          <div className="w-full">
+            <h3 className="text-sm font-bold text-gray-900 mb-2 ml-1">Follow Up</h3>
+            <div className="w-full border border-gray-200 rounded-lg p-4 bg-gray-50 text-gray-700 text-sm min-h-[80px]">
+              {data?.followUp || "No follow up items."}
+            </div>
+          </div>
+
+          {/* Coaching Tips Box */}
+          <div className="w-full">
+            <h3 className="text-sm font-bold text-gray-900 mb-2 ml-1">Coaching Tips</h3>
+            <div className="w-full border border-gray-200 rounded-lg p-4 bg-gray-50 text-gray-700 text-sm min-h-[80px]">
+              {data?.coachingTips || "No tips available."}
+            </div>
+          </div>
+
+        </div>
+      )}
+
+      {/* Ayırıcı Çizgi */}
+      <div className="w-full h-px bg-gray-100 my-8"></div>
+
+      {/* Exit Butonu */}
+      <div className="flex justify-center">
+        <button 
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-12 rounded-lg transition-colors"
+          onClick={() => alert('Çıkış yapılıyor...')}
+        >
+          Exit
+        </button>
+      </div>
+
+    </div>
+  );
+};
+
+export default AnalysisResults;

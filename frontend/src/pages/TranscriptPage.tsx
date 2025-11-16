@@ -1,30 +1,66 @@
-function TranscriptPage() {
-  return (
-<div style={{width: 440, height: 956, padding: 20, background: 'linear-gradient(0deg, #F8FAFC 0%, #F8FAFC 100%), white', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-  <div style={{alignSelf: 'stretch', flex: '1 1 0', paddingLeft: 21, paddingRight: 21, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-    <div style={{flex: '1 1 0', height: 903, paddingTop: 75, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
-      <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 8, display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-          <div style={{alignSelf: 'stretch', textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#0F172A', fontSize: 36, fontFamily: 'Poppins', fontWeight: '700', lineHeight: 40, wordWrap: 'break-word'}}>Transcript</div>
-        </div>
-        <div style={{alignSelf: 'stretch', height: 66, paddingTop: 21, paddingBottom: 21}} />
-      </div>
-      <div style={{alignSelf: 'stretch', height: 555, paddingBottom: 20, overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 32, display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', paddingLeft: 13, paddingRight: 13, paddingTop: 9, paddingBottom: 9, background: '#F8FAFC', overflow: 'hidden', borderRadius: 8, outline: '1px #CBD5E1 solid', outlineOffset: '-1px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-          <div style={{alignSelf: 'stretch', overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'black', fontSize: 14, fontFamily: 'Sora', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Hey!             Hey how’s it going             Sample text             Sample Response             Sample text             Sample Response             Sample text             Sample Response </div>
-          </div>
-        </div>
-      </div>
-      <div style={{width: 358, paddingTop: 17, left: 0, top: 769, position: 'absolute', borderTop: '1px #E2E8F0 solid', justifyContent: 'flex-end', alignItems: 'flex-start', display: 'inline-flex'}}>
-        <div style={{paddingLeft: 35, paddingRight: 35, paddingTop: 13, paddingBottom: 13, left: 80, top: 17, position: 'absolute', background: '#1287FF', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRadius: 16, justifyContent: 'center', alignItems: 'center', gap: 10, display: 'flex'}}>
-          <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'white', fontSize: 18, fontFamily: 'Sora', fontWeight: '600', lineHeight: 24, wordWrap: 'break-word'}}>View Analysis</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-  );
-}
+// src/Transcript.tsx
 
-export default TranscriptPage;
+import React, { useState, useEffect } from "react";
+
+const Transcript: React.FC = () => {
+  // 1. State: Transkript verilerini tutacak olan "değişkenimiz".
+  // Başlangıçta boş bir dizi [] olarak tanımladık.
+  const [transcripts] = useState<string[]>([]);
+
+  // 2. Loading State: Veri gelene kadar "Yükleniyor..." göstermek için.
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // 3. useEffect: Sayfa ilk açıldığında çalışacak kod bloğu.
+  // API bağlantısını ileride tam buraya yazacağız.
+  useEffect(() => {
+    const fakeApiCall = async () => {
+      setIsLoading(true);
+
+      setIsLoading(false);
+    };
+
+    fakeApiCall();
+  }, []);
+
+  return (
+    <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md flex flex-col items-center">
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">Transcript</h1>
+
+      {/* Transkript Kutusu */}
+      <div className="w-full border border-gray-200 rounded-lg p-4 mb-8 bg-gray-50 h-64 overflow-y-auto relative">
+        {/* Eğer yükleniyorsa dönen bir yuvarlak veya yazı göster */}
+        {isLoading ? (
+          <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+            Loading...
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {/* Eğer veri varsa listele, yoksa "Veri yok" yaz */}
+            {transcripts.length > 0 ? (
+              transcripts.map((line, index) => (
+                <p key={index} className="text-gray-700 text-sm">
+                  {line}
+                </p>
+              ))
+            ) : (
+              <p className="text-gray-400 text-sm text-center mt-20">
+                No transcript data available.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="w-full h-px bg-gray-100 mb-6"></div>
+
+      <button
+        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors w-48"
+        onClick={() => alert("Analiz sayfasına gidiliyor...")}
+      >
+        View Analysis
+      </button>
+    </div>
+  );
+};
+
+export default Transcript;
